@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Academic Writeup Generator for Jawahar Education Society's A. C. Patil College of Engineering, Kharghar, Navi Mumbai">
+    <title>ACPCE Writeup Maker | A. C. Patil College of Engineering</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Times+New+Roman&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ======================== LOGIN PAGE ======================== -->
+    <div id="login-page" class="page active">
+        <div class="login-bg">
+            <div class="bg-orb bg-orb-1"></div>
+            <div class="bg-orb bg-orb-2"></div>
+            <div class="bg-orb bg-orb-3"></div>
+        </div>
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="login-logo-wrapper">
+                        <div class="login-logo-glow"></div>
+                        <img src="assets/logo.png" alt="ACPCE Logo" class="login-logo" id="login-logo-img">
+                    </div>
+                    <h1 class="login-title">A. C. Patil College of Engineering</h1>
+                    <p class="login-subtitle">Jawahar Education Society</p>
+                    <p class="login-tagline">Academic Writeup Generator</p>
+                </div>
+                <form id="login-form" class="login-form" autocomplete="off">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            <input type="text" id="username" placeholder="Username" required>
+                            <span class="input-focus-line"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <input type="password" id="password" placeholder="Password" required>
+                            <span class="input-focus-line"></span>
+                            <button type="button" class="toggle-password" id="toggle-password"
+                                aria-label="Toggle password visibility">
+                                <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                                <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" style="display:none">
+                                    <path
+                                        d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                                    <line x1="1" y1="1" x2="23" y2="23" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="login-error" id="login-error">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                            height="16">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="15" y1="9" x2="9" y2="15" />
+                            <line x1="9" y1="9" x2="15" y2="15" />
+                        </svg>
+                        <span>Invalid credentials. Please try again.</span>
+                    </div>
+                    <button type="submit" class="btn-login" id="btn-login">
+                        <span class="btn-text">Sign In</span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== APP PAGE ======================== -->
+    <div id="app-page" class="page">
+        <!-- Top Navigation -->
+        <nav class="app-nav">
+            <div class="nav-left">
+                <img src="assets/logo.png" alt="ACPCE" class="nav-logo">
+                <div class="nav-brand">
+                    <span class="nav-brand-name">ACPCE Writeup Maker</span>
+                    <span class="nav-brand-sub">Academic Year 2025–26</span>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="nav-user">
+                    <div class="nav-avatar" id="nav-avatar">S</div>
+                    <span class="nav-username" id="nav-username">Student</span>
+                </div>
+                <button class="btn-logout" id="btn-logout" title="Sign out">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Progress Stepper -->
+        <div class="stepper-container">
+            <div class="stepper">
+                <div class="step active" data-step="1">
+                    <div class="step-circle">
+                        <span class="step-number">1</span>
+                        <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                    <span class="step-label">Write Content</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">
+                        <span class="step-number">2</span>
+                        <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                    <span class="step-label">Your Details</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="3">
+                    <div class="step-circle">
+                        <span class="step-number">3</span>
+                        <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                    <span class="step-label">Add Images</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="4">
+                    <div class="step-circle">
+                        <span class="step-number">4</span>
+                        <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                    <span class="step-label">Preview & Download</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="app-main">
+
+            <!-- Step 1: Write Content -->
+            <section class="step-panel active" id="step-1-panel">
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <div class="panel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="panel-title">Write Your Writeup</h2>
+                            <p class="panel-description">Enter or paste the main content of your academic writeup below.
+                                The text will be automatically justified in the final document.</p>
+                        </div>
+                    </div>
+                    <div class="textarea-container">
+                        <div class="textarea-toolbar">
+                            <span class="char-count" id="char-count">0 characters</span>
+                            <button type="button" class="btn-clear-text" id="btn-clear-text" title="Clear content">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                                    height="16">
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                </svg>
+                                Clear
+                            </button>
+                        </div>
+                        <textarea id="writeup-content"
+                            placeholder="Start typing your writeup content here...&#10;&#10;You can write multiple paragraphs. The text will be justified in the final document.&#10;&#10;Tip: Use **text** to make text bold in the final output."
+                            rows="16"></textarea>
+                    </div>
+                    <div class="panel-actions">
+                        <div></div>
+                        <button class="btn-primary" id="btn-step1-next">
+                            Continue
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                                height="18">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Footer Details -->
+            <section class="step-panel" id="step-2-panel">
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <div class="panel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="panel-title">Your Details</h2>
+                            <p class="panel-description">These details will appear in the footer of your writeup
+                                document.</p>
+                        </div>
+                    </div>
+                    <div class="details-form">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="student-name">Full Name <span class="required">*</span></label>
+                                <input type="text" id="student-name" placeholder="e.g., Rahul Patil" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="student-batch">Batch <span class="required">*</span></label>
+                                <input type="text" id="student-batch" placeholder="e.g., T2">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="student-roll">Roll No <span class="required">*</span></label>
+                                <input type="text" id="student-roll" placeholder="e.g., T2-036">
+                            </div>
+                            <div class="form-field">
+                                <label for="academic-year">Academic Year</label>
+                                <input type="text" id="academic-year" value="2025-26" placeholder="2025-26">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn-secondary" id="btn-step2-back">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                                height="18">
+                                <line x1="19" y1="12" x2="5" y2="12" />
+                                <polyline points="12 19 5 12 12 5" />
+                            </svg>
+                            Back
+                        </button>
+                        <button class="btn-primary" id="btn-step2-next">
+                            Continue
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                                height="18">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Add Images -->
+            <section class="step-panel" id="step-3-panel">
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <div class="panel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="panel-title">Add Images <span class="optional-badge">Optional</span></h2>
+                            <p class="panel-description">Upload images to include in your writeup. They will appear
+                                below the main content.</p>
+                        </div>
+                    </div>
+                    <div class="upload-zone" id="upload-zone">
+                        <div class="upload-zone-content">
+                            <div class="upload-icon-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48"
+                                    height="48">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                            </div>
+                            <p class="upload-text">Drag & drop images here</p>
+                            <p class="upload-subtext">or click to browse</p>
+                            <p class="upload-formats">Supports: JPG, PNG, WEBP (Max 5MB each)</p>
+                        </div>
+                        <input type="file" id="image-input" accept="image/jpeg,image/png,image/webp" multiple hidden>
+                    </div>
+                    <div class="image-preview-grid" id="image-preview-grid"></div>
+                    <div class="panel-actions">
+                        <button class="btn-secondary" id="btn-step3-back">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                                height="18">
+                                <line x1="19" y1="12" x2="5" y2="12" />
+                                <polyline points="12 19 5 12 12 5" />
+                            </svg>
+                            Back
+                        </button>
+                        <button class="btn-primary" id="btn-step3-next">
+                            Preview Writeup
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                                height="18">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4: Preview & Download -->
+            <section class="step-panel" id="step-4-panel">
+                <div class="preview-toolbar">
+                    <button class="btn-secondary" id="btn-step4-back">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                            height="18">
+                            <line x1="19" y1="12" x2="5" y2="12" />
+                            <polyline points="12 19 5 12 12 5" />
+                        </svg>
+                        Edit Writeup
+                    </button>
+                    <div class="preview-toolbar-right">
+                        <button class="btn-download" id="btn-download-pdf">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                                height="18">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            <span>Download as PDF</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="preview-scroll-area">
+                    <div class="a4-page-wrapper">
+                        <div class="a4-page" id="a4-page">
+                            <!-- FOOTER — Declared BEFORE the table so Chrome print engine repeats it on every page -->
+                            <div class="doc-footer-fixed">
+                                <hr class="doc-hr doc-hr-footer">
+                                <div class="doc-footer">
+                                    <div class="doc-footer-left">
+                                        <span id="doc-student-name" class="val-student-name">Student Name</span>
+                                    </div>
+                                    <div class="doc-footer-center">
+                                        <span id="doc-roll-no" class="val-roll-no">Roll No</span>
+                                    </div>
+                                    <div class="doc-footer-right">
+                                        <strong>Page</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="doc-table">
+                                <!-- HEADER — repeats on every printed page -->
+                                <thead>
+                                    <tr>
+                                        <td class="doc-thead-cell">
+                                            <div class="doc-header">
+                                                <img src="assets/logo.png" alt="ACPCE Logo" class="doc-logo"
+                                                    id="doc-logo-img">
+                                                <div class="doc-header-text">
+                                                    <h1 class="doc-college-name">Jawahar Education Society's A. C.
+                                                        Patil College of Engineering</h1>
+                                                    <p class="doc-location">Kharghar, Navi Mumbai –410210</p>
+                                                    <p class="doc-year">Academic Year <span class="val-academic-year" id="doc-academic-year">2025-26</span></p>
+                                                </div>
+                                            </div>
+                                            <hr class="doc-hr">
+                                        </td>
+                                    </tr>
+                                </thead>
+
+                                <!-- BODY — main content that flows across pages -->
+                                <tbody>
+                                    <tr>
+                                        <td class="doc-tbody-cell">
+                                            <!-- Content -->
+                                            <div class="doc-content" id="doc-content">
+                                                <p class="doc-placeholder">Your writeup content will appear here...</p>
+                                            </div>
+
+                                            <!-- Output / Images -->
+                                            <div class="doc-output-section" id="doc-output-section"
+                                                style="display:none;">
+                                                <p class="doc-output-label"><strong>Output:</strong></p>
+                                                <div class="doc-images" id="doc-images"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Success Toast -->
+        <div class="toast" id="toast-success">
+            <div class="toast-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+            </div>
+            <div class="toast-content">
+                <span class="toast-title" id="toast-title">Success!</span>
+                <span class="toast-message" id="toast-message">Your writeup has been downloaded.</span>
+            </div>
+            <button class="toast-close" id="toast-close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+        <!-- App UI Footer — Tensor Talezz branding -->
+        <footer class="app-footer">
+            <div class="app-footer-inner">
+                <img src="assets/tensor-talezz.jpg" alt="Tensor Talezz" class="app-footer-logo">
+                <span class="app-footer-text">&copy; 2026. Powered by <strong>Tensor Talezz</strong></span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
