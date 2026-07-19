@@ -212,6 +212,47 @@ img {
     animation: cardEntry 0.7s var(--transition-spring) both;
 }
 
+/* Tensor Talezz branding at top of login card */
+.login-powered-by {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-bottom: var(--space-lg);
+    padding: 6px 14px;
+    background: rgba(212, 148, 62, 0.1);
+    border: 1px solid rgba(212, 148, 62, 0.25);
+    border-radius: var(--radius-full);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all var(--transition-base);
+}
+
+.login-powered-by:hover {
+    background: rgba(212, 148, 62, 0.18);
+    border-color: rgba(212, 148, 62, 0.45);
+    transform: translateY(-1px);
+}
+
+.login-powered-logo {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.login-powered-text {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+}
+
+.login-powered-text strong {
+    color: #d4943e;
+    font-weight: 700;
+}
+
 @keyframes cardEntry {
     from {
         opacity: 0;
@@ -542,6 +583,41 @@ img {
     display: flex;
     align-items: center;
     gap: var(--space-md);
+}
+
+/* Tensor Talezz branding pill in the nav */
+.nav-powered-by {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    background: rgba(212, 148, 62, 0.08);
+    border: 1px solid rgba(212, 148, 62, 0.2);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+}
+
+.nav-powered-by:hover {
+    background: rgba(212, 148, 62, 0.14);
+    border-color: rgba(212, 148, 62, 0.35);
+}
+
+.nav-powered-logo {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.nav-powered-text {
+    font-size: 0.72rem;
+    color: var(--clr-app-text-secondary);
+    white-space: nowrap;
+}
+
+.nav-powered-text strong {
+    color: #d4943e;
+    font-weight: 700;
 }
 
 .nav-user {
@@ -1458,6 +1534,10 @@ textarea#writeup-content::placeholder {
     }
 
     .nav-username {
+        display: none;
+    }
+
+    .nav-powered-by {
         display: none;
     }
 
