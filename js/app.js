@@ -21,12 +21,15 @@
         currentUser: null,
         currentStep: 1,
         writeupContent: '',
+        conclusionContent: '',
         studentName: '',
         studentBatch: '',
         studentRoll: '',
         academicYear: '2025-26',
-        images: [],       // { id, file, dataUrl }
-        imageIdCounter: 0
+        images: [],           // { id, file, dataUrl } — output/step-3 images
+        theoryImages: [],     // { id, file, dataUrl } — theory section images
+        imageIdCounter: 0,
+        theoryImageIdCounter: 0
     };
 
     // -------------------- DOM References --------------------
@@ -58,6 +61,10 @@
         charCount: document.getElementById('char-count'),
         btnClearText: document.getElementById('btn-clear-text'),
         btnStep1Next: document.getElementById('btn-step1-next'),
+        conclusionContent: document.getElementById('conclusion-content'),
+        theoryUploadZone: document.getElementById('theory-upload-zone'),
+        theoryImageInput: document.getElementById('theory-image-input'),
+        theoryImagePreviewGrid: document.getElementById('theory-image-preview-grid'),
 
         // Step 2
         studentName: document.getElementById('student-name'),
@@ -165,21 +172,26 @@
         state.currentUser = null;
         state.currentStep = 1;
         state.writeupContent = '';
+        state.conclusionContent = '';
         state.studentName = '';
         state.studentBatch = '';
         state.studentRoll = '';
         state.academicYear = '2025-26';
         state.images = [];
+        state.theoryImages = [];
         state.imageIdCounter = 0;
+        state.theoryImageIdCounter = 0;
 
         // Reset forms
         dom.loginForm.reset();
         dom.writeupContent.value = '';
+        dom.conclusionContent.value = '';
         dom.studentName.value = '';
         dom.studentBatch.value = '';
         dom.studentRoll.value = '';
         dom.academicYear.value = '2025-26';
         dom.imagePreviewGrid.innerHTML = '';
+        dom.theoryImagePreviewGrid.innerHTML = '';
         dom.charCount.textContent = '0 characters';
         dom.loginError.classList.remove('show');
 
@@ -249,6 +261,31 @@
             }
         });
 
+        // Theory image upload
+        dom.theoryUploadZone.addEventListener('click', function () {
+            dom.theoryImageInput.click();
+        });
+
+        dom.theoryImageInput.addEventListener('change', function () {
+            handleTheoryFiles(this.files);
+            this.value = '';
+        });
+
+        dom.theoryUploadZone.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.classList.add('drag-over');
+        });
+
+        dom.theoryUploadZone.addEventListener('dragleave', function () {
+            this.classList.remove('drag-over');
+        });
+
+        dom.theoryUploadZone.addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            handleTheoryFiles(e.dataTransfer.files);
+        });
+
         dom.btnStep1Next.addEventListener('click', function () {
             if (!dom.writeupContent.value.trim()) {
                 showToast('Content Required', 'Please enter your writeup content before continuing.', 'warning');
@@ -256,7 +293,61 @@
                 return;
             }
             state.writeupContent = dom.writeupContent.value;
+            state.conclusionContent = dom.conclusionContent.value;
             goToStep(2);
+        });
+    }
+
+    function handleTheoryFiles(files) {
+        Array.from(files).forEach(function (file) {
+            if (!file.type.match(/^image\/(jpeg|png|webp)$/)) {
+                showToast('Invalid File', file.name + ' is not a supported image format.', 'warning');
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('File Too Large', file.name + ' exceeds the 5MB limit.', 'warning');
+                return;
+            }
+
+            const id = ++state.theoryImageIdCounter;
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                state.theoryImages.push({
+                    id: id,
+                    file: file,
+                    dataUrl: e.target.result
+                });
+                renderTheoryImagePreviews();
+            };
+
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function renderTheoryImagePreviews() {
+        dom.theoryImagePreviewGrid.innerHTML = '';
+
+        state.theoryImages.forEach(function (img) {
+            var item = document.createElement('div');
+            item.className = 'image-preview-item';
+
+            item.innerHTML =
+                '<img src="' + img.dataUrl + '" alt="Theory ' + img.id + '">' +
+                '<button class="image-remove-btn" data-id="' + img.id + '" title="Remove image">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                '<line x1="18" y1="6" x2="6" y2="18"/>' +
+                '<line x1="6" y1="6" x2="18" y2="18"/>' +
+                '</svg></button>';
+
+            item.querySelector('.image-remove-btn').addEventListener('click', function (e) {
+                e.stopPropagation();
+                var removeId = parseInt(this.getAttribute('data-id'));
+                state.theoryImages = state.theoryImages.filter(function (i) { return i.id !== removeId; });
+                renderTheoryImagePreviews();
+            });
+
+            dom.theoryImagePreviewGrid.appendChild(item);
         });
     }
 
@@ -410,6 +501,19 @@
                 contentHtml += '<p>' + formatText(trimmed) + '</p>';
             }
         });
+
+        // Append theory images after text content (in the Theory section)
+        if (state.theoryImages.length > 0) {
+            contentHtml += '<div class="doc-theory-images">';
+            state.theoryImages.forEach(function (img) {
+                contentHtml +=
+                    '<div class="doc-image-item">' +
+                    '<img src="' + img.dataUrl + '" alt="Theory Image">' +
+                    '</div>';
+            });
+            contentHtml += '</div>';
+        }
+
         dom.docContent.innerHTML = contentHtml || '<p class="doc-placeholder">No content</p>';
 
         // Update academic year across headers/footers
@@ -442,6 +546,22 @@
             });
         } else {
             dom.docOutputSection.style.display = 'none';
+        }
+
+        // Update Conclusion section (after Output)
+        var docConclusionSection = document.getElementById('doc-conclusion-section');
+        var docConclusionText = document.getElementById('doc-conclusion-text');
+        var conclusionTrimmed = state.conclusionContent.trim();
+        if (conclusionTrimmed) {
+            docConclusionSection.style.display = 'block';
+            var conclusionHtml = '';
+            conclusionTrimmed.split(/\n\s*\n|\n/).forEach(function (para) {
+                var t = para.trim();
+                if (t) conclusionHtml += '<p>' + formatText(t) + '</p>';
+            });
+            docConclusionText.innerHTML = conclusionHtml;
+        } else {
+            docConclusionSection.style.display = 'none';
         }
     }
 
